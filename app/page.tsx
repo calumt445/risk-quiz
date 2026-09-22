@@ -1,56 +1,80 @@
 import Link from "next/link";
-
 import SignupForm from "./SignupForm";
+
+type Condition = {
+  name: string;
+  description: string;
+  href?: string; // present = live, absent = coming soon
+};
+
+const conditions: Condition[] = [
+  {
+    name: "Type 2 Diabetes",
+    description: "A validated 2-minute screening based on lifestyle and family history.",
+    href: "/quiz",
+  },
+  {
+    name: "Heart & Cardiovascular",
+    description: "Risk based on activity, diet, blood pressure, and family history.",
+  },
+  {
+    name: "Cancer",
+    description: "Risk factors across common cancer types, and what lowers them.",
+  },
+  {
+    name: "Brain Health & Dementia",
+    description: "Lifestyle factors linked to long-term brain health.",
+  },
+];
 
 export default function Home() {
   return (
-    <main className="mx-auto max-w-3xl px-6 py-16">
+    <main className="mx-auto max-w-4xl px-6 py-16">
       <section className="text-center">
         <h1 className="text-4xl font-bold sm:text-5xl">
           Know your health risks. Then change them.
         </h1>
-        <p className="mt-4 text-lg text-gray-600">
-          Answer a few questions about your lifestyle and get a risk estimate
-          based on a validated screening questionnaire, plus the habits that
-          would lower it the most.
-        </p>
-        <Link
-          href="/quiz"
-          className="mt-8 inline-block rounded bg-black px-8 py-3 text-white"
-        >
-          Take the diabetes risk check
-        </Link>
-        <p className="mt-3 text-sm text-gray-500">
-          Takes about 2 minutes. Your answers stay in your browser.
+        <p className="mx-auto mt-4 max-w-xl text-lg text-gray-600">
+          Pick a condition below to answer a few questions and get a risk
+          estimate based on validated screening questionnaires, plus the
+          habits that would lower it the most.
         </p>
       </section>
 
-      <section className="mt-20 grid gap-8 sm:grid-cols-3">
-        <div>
-          <h2 className="font-semibold">1. Answer a few questions</h2>
-          <p className="mt-1 text-gray-600">
-            Age, activity, diet, and family history. No account needed.
-          </p>
-        </div>
-        <div>
-          <h2 className="font-semibold">2. See your risk level</h2>
-          <p className="mt-1 text-gray-600">
-            Get a clear score and what it means in plain language.
-          </p>
-        </div>
-        <div>
-          <h2 className="font-semibold">3. Learn what to change</h2>
-          <p className="mt-1 text-gray-600">
-            See which habits would lower your risk the most.
-          </p>
-        </div>
+      <section className="mt-12 grid gap-4 sm:grid-cols-2">
+        {conditions.map((c) =>
+          c.href ? (
+            <Link
+              key={c.name}
+              href={c.href}
+              className="rounded border p-6 transition hover:border-black"
+            >
+              <h2 className="font-semibold">{c.name}</h2>
+              <p className="mt-1 text-sm text-gray-600">{c.description}</p>
+              <span className="mt-3 inline-block text-sm font-medium">
+                Take the check →
+              </span>
+            </Link>
+          ) : (
+            <div
+              key={c.name}
+              className="rounded border border-dashed p-6 opacity-60"
+            >
+              <h2 className="font-semibold">{c.name}</h2>
+              <p className="mt-1 text-sm text-gray-600">{c.description}</p>
+              <span className="mt-3 inline-block rounded bg-gray-100 px-2 py-1 text-xs font-medium">
+                Coming soon
+              </span>
+            </div>
+          )
+        )}
       </section>
 
-      <section className="mt-20 rounded border p-6">
-        <h2 className="text-xl font-bold">More conditions coming soon</h2>
+      <section className="mt-16 rounded border p-6">
+        <h2 className="text-xl font-bold">Get notified as new checks launch</h2>
         <p className="mt-2 text-gray-600">
-          We're adding heart health, cancer risk factors, and brain health. Leave
-          your email and we'll let you know when they launch.
+          Leave your email and we'll let you know when heart, cancer, and
+          brain health checks are ready.
         </p>
         <SignupForm />
         <p className="mt-2 text-sm text-gray-500">
