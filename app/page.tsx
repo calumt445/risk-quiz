@@ -15,7 +15,9 @@ const conditions: Condition[] = [
   },
   {
     name: "Heart & Cardiovascular",
-    description: "Risk based on activity, diet, blood pressure, and family history.",
+    description: "Risk based on activity, diet, blood pressure, and family history."
+    ,
+    href: "/heart",
   },
   {
     name: "Cancer",
